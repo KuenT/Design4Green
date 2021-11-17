@@ -1,7 +1,7 @@
 import gr491 from "./gr491-loader.js"
 import {addCard, clearCards} from "./card-loader.js"
 
-let gr491_result = await gr491();
+window.gr491_result = await gr491();
 
 const description = {
     "STRATEGIE": "L'étape de stratégie projet permet de déterminer la pertinence et les enjeux du projet.",
@@ -18,6 +18,11 @@ clearCards();
 
 for (const [key, value] of Object.entries(gr491_result.categories)) {
     addCard(key, key + " (" + value.length + ")", description[key]);
+}
+
+window.goBackToHomepage = () => {
+    document.getElementById("gr491-categories").hidden = false;
+    document.getElementById("gr491-rules").hidden = true;
 }
 
 console.log(gr491_result.categories);

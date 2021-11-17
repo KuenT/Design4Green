@@ -1,9 +1,22 @@
+import {clearRules, addRule} from "./rule-loader.js"
+
 let cardHolder = document.getElementById("gr491-categories");
-let cardCount = 0;
+
+window.onClickedCard = (key) => {
+    clearRules();
+
+    let rules = gr491_result.categories[key];
+
+    for (let i = 0; i < rules.length; ++i) {
+        addRule(key, gr491_result.data[rules[i]]);
+    }
+
+    document.getElementById("gr491-categories").hidden = true;
+    document.getElementById("gr491-rules").hidden = false;
+}
 
 export function clearCards() {
     cardHolder.innerHTML = "";
-    cardCount = 0;
 }
 
 export function addCard(key, title, content) {
@@ -13,7 +26,7 @@ export function addCard(key, title, content) {
             <div class="card-body">
                 <h5 class="card-title" style="overflow:hidden;height: 1em;">${title}</h5>
                 <p class="card-text" style="height:10em;overflow:auto;">${content}</p>
-                <a href="#" class="btn btn-primary" id=""><span hidden>${key}</span>Go somewhere</a>
+                <a href="#" onclick="onClickedCard('${key}')" class="btn btn-success" id=""><span hidden>${key}</span>Voir régles</a>
             </div>
         </div>
     </div>
