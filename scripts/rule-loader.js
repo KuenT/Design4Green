@@ -16,11 +16,11 @@ export function addRule(key, rule) {
     const prefab = `
     <div class="col-12" style="padding: 0.5em;">
         <div class="card">
-            <div class="card-body" style="text-align: left;">
+            <div class="card-body" style="text-align:left;">
                 <div class="row">
-                    <h5 class="col-6 card-title" style="overflow:hidden;height: 1em;">${id}</h5>
-                    <p class="col-3 card-text" style="height:1em;overflow:hidden;">${inconturnable}</p>
-                    <a href="#" class="col-3 btn btn-primary">Go somewhere</a>
+                    <h5 class="col-3 card-title">${id}</h5>
+                    <p class="col-7 card-text">${inconturnable}</p>
+                    <a href="#" class="col-2 btn btn-primary">Add</a>
                 </div>
             </div>
         </div>
