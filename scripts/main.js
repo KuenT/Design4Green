@@ -1,5 +1,5 @@
 import gr491 from "./gr491-loader.js"
 
-gr491();
+let table = await gr491();
 
-console.log("Hello World");
+console.table(table);
