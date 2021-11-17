@@ -49,21 +49,30 @@ async function FetchFileAndSave() {
 }
 
 function GetCategories(table) {
-    let categories = {};
+    let savedData = localStorage.getItem("INR-GR491-categories.json");
 
-    for (let i = 1; i < table.length; ++i) {
-        if (categories[table[i][0]] === undefined)
-            categories[table[i][0]] = [];
-        categories[table[i][0]].push(i);
+    if (savedData === null) {
+        console.log("Recalculated categories.");
+        let categories = {};
+
+        for (let i = 1; i < table.length; ++i) {
+            if (categories[table[i][0]] === undefined)
+                categories[table[i][0]] = [];
+            categories[table[i][0]].push(i);
+        }
+
+        localStorage.setItem("INR-GR491-categories.json", JSON.stringify(categories));
+        return categories;
+    } else {
+        return JSON.parse(savedData);
     }
-
-    return categories;
 }
 
 export default async function() {
     let text = localStorage.getItem("INR-GR491.csv");
 
     if (text === null) {
+        localStorage.removeItem("INR-GR491-categories.json");
         text = await FetchFileAndSave();
     }
 

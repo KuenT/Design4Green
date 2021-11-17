@@ -11,7 +11,7 @@ export function addCard(title, content) {
     <div class="col-4" style="padding: 0.5em;">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title" style="overflow:hidden;">${title}</h5>
+                <h5 class="card-title" style="overflow:hidden;height: 1em;">${title}</h5>
                 <p class="card-text" style="height:10em;overflow:auto;">${content}</p>
                 <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
