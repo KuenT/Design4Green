@@ -1,4 +1,4 @@
-import gr491 from "gr491-loader"
+import gr491 from "./gr491-loader.js"
 
 gr491();
 
