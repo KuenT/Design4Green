@@ -17,7 +17,7 @@ const description = {
 clearCards();
 
 for (const [key, value] of Object.entries(gr491_result.categories)) {
-    addCard(key + " (" + value.length + ")", description[key]);
+    addCard(key, key + " (" + value.length + ")", description[key]);
 }
 
 console.log(gr491_result.categories);
