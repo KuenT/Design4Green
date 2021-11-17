@@ -1,5 +1,7 @@
 import gr491 from "./gr491-loader.js"
 
-let table = await gr491();
+let gr491_result = await gr491();
 
-console.log("Loaded " + table.length + " rows.");
+console.log("Loaded " + gr491_result.data.length + " rows.");
+
+console.log(gr491_result.categories);

@@ -41,10 +41,23 @@ function CSVToArray( strData, strDelimiter ){
 }
 
 async function FetchFileAndSave() {
+    console.log("Fetched .csv file from the server.");
     let response = await fetch("./INR-GR491.csv");
-    text = await response.text();
+    let text = await response.text();
     localStorage.setItem("INR-GR491.csv", text);
     return text;
+}
+
+function GetCategories(table) {
+    let categories = {};
+
+    for (let i = 1; i < table.length; ++i) {
+        if (categories[table[i][0]] === undefined)
+            categories[table[i][0]] = [];
+        categories[table[i][0]].push(i);
+    }
+
+    return categories;
 }
 
 export default async function() {
@@ -60,6 +73,8 @@ export default async function() {
         text = await FetchFileAndSave();
     }
 
-
-    return table;
+    return {
+        categories: GetCategories(table),
+        data: table
+    };
 }
