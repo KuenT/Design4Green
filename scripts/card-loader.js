@@ -8,7 +8,7 @@ window.onClickedCard = (key) => {
     let rules = gr491_result.categories[key];
 
     for (let i = 0; i < rules.length; ++i) {
-        addRule(i, gr491_result.data[rules[i]]);
+        addRule(rules[i], i, gr491_result.data[rules[i]]);
     }
 
     document.getElementById("gr491-categories").hidden = true;

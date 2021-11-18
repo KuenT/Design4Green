@@ -35,19 +35,62 @@ function getButton(key) {
     return add;
 }
 
-export function addRule(key, rule) {
+export function getRuleCartHTML(key, rule) {
+    let id = rule[1];
+    let inconturnable = rule[17];
+    let tag = rule[14];
+    let criteres = rule[6];
+    
+    const uncontournable = inconturnable ? `
+        <div class="badge badge-danger mx-1" style="align-self: center;">INCONTOURNABLE</div>
+        ` : "";
+
+    return`
+        <div class="col-12" id="group-${lastGroupId}"
+            style="padding: 0.5em;text-decoration: none;color:black;">
+            <div class="card">
+                <div style="text-align:left;margin:1em;">
+                    <div class="row">
+                        <div style="display: flex;">
+                            <button type="button" 
+                                class="btn btn-danger rounded-pill"
+                                style="transform: scale(0.67);float:right;"
+                                onclick="removeFromCart(${key})"
+                            >
+                                x
+                            </button>
+                            ${uncontournable}
+                            <div class="badge badge-${
+                                (tag == "RECO") ? "primary" : tag == "CONSEIL" ? "success" : "info"
+                            } mx-1" style="align-self: center;">
+                                ${tag}
+                            </div>
+                            <h5 class="card-title mx-2" style="width:6em">${id}</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h5 class="col-10 fs-6 fw-normal" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                            ${criteres}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+}
+
+export function getRuleHTML(globalKey, key, rule) {
     let id = rule[1];
     let isStartOfSubcategory = !rule[2];
     let inconturnable = rule[17];
     let tag = rule[14];
     let recomendation = rule[5];
     let criteres = rule[6];
-    let tests = rule[9];
-    let precision = rule[7];
     let usecase = rule[25];
 
     if (isStartOfSubcategory) {
         lastGroupId += 1;
+        
 
         const prefab = `
         <a data-toggle="collapse" href="#group-${lastGroupId}"
@@ -69,7 +112,7 @@ export function addRule(key, rule) {
         </a>
         `;
 
-        ruleHolder.innerHTML += prefab;
+        return prefab;
     }
     else {
         const uncontournable = inconturnable ? `
@@ -78,7 +121,7 @@ export function addRule(key, rule) {
 
         const prefab = `
         <a class="col-12 collapse" id="group-${lastGroupId}"
-            href="#rule_${key}" data-target="#rule_${key}"
+            href="#rule_${globalKey}" data-target="#rule_${globalKey}"
             data-toggle="modal" role="button"
             style="padding: 0.5em;text-decoration: none;color:black;">
             <div class="card">
@@ -106,7 +149,7 @@ export function addRule(key, rule) {
 
         const modal = `
         <!-- Modal -->
-        <div class="modal fade" id="rule_${key}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="rule_${globalKey}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -164,14 +207,18 @@ export function addRule(key, rule) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    ${getButton(key)}
+                    ${getButton(globalKey)}
                 </div>
                 </div>
             </div>
         </div>
         `;
 
-        ruleHolder.innerHTML += prefab;
-        ruleHolder.innerHTML += modal;
+        return prefab + modal;
     }
+}
+
+export function addRule(globalKey, key, rule) {
+    
+    ruleHolder.innerHTML += getRuleHTML(globalKey, key, rule);
 }

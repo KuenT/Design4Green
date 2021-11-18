@@ -15,6 +15,9 @@ const description = {
     "HEBERGEMENT": "Moyens mis en oeuvre pour permettre l'utilisation d'un service numérique par des utilisateurs distants.",
 }
 
+window.data = gr491_result.data;
+window.clearCart = clearCart;
+
 clearCards();
 clearCart();
 

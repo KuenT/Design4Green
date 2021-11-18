@@ -1,4 +1,7 @@
 let cartCounter = document.getElementById("cart-count");
+let cartHolder = document.getElementById("cart-holder");
+
+import { getRuleCartHTML } from "./rule-loader.js"
 
 let cartList = [];
 
@@ -7,9 +10,17 @@ export function clearCart() {
     updateCartCount();
 }
 
+function rebuildCartHTML() {
+    let html = "";
+    for (let i = 0; i < cartList.length; ++i) {
+        html += getRuleCartHTML(cartList[i], data[cartList[i]]);
+    }
+    cartHolder.innerHTML = html;
+}
+
 function updateCartCount() {
     cartCounter.innerText = cartList.length;
-    console.log(cartList);
+    rebuildCartHTML();
 }
 
 export function cartContains(id) {
@@ -18,9 +29,9 @@ export function cartContains(id) {
 
 export function populateWithRequired(csv) {
     if (cartList.length == 0) {
-        for (let i = 0; i < csv.length; ++i) {
-            if (csv[i][17].length > 1)
-                cartList.push(i - 1);
+        for (let i = 1; i < csv.length; ++i) {
+            if (csv[i][17].length > 1 && csv[i][0] != "HEBERGEMENT")
+                cartList.push(i);
         }
         updateCartCount();
     }
