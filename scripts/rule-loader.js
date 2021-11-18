@@ -21,6 +21,18 @@ function getColor(letter) {
 function escape(val) {
     if (val.length > 1) return val;
     return null;
+} 
+
+function getButton(key) {
+    const add = `
+    <button type="button"
+        class="btn btn-primary"
+        onclick="addToCart(${key})"
+        data-target="#rule_${key}"
+        data-toggle="modal"
+    >Ajouter</button>`;
+
+    return add;
 }
 
 export function addRule(key, rule) {
@@ -152,7 +164,7 @@ export function addRule(key, rule) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Ajouter</button>
+                    ${getButton(key)}
                 </div>
                 </div>
             </div>

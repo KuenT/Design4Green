@@ -1,5 +1,6 @@
 import gr491 from "./gr491-loader.js"
 import {addCard, clearCards} from "./card-loader.js"
+import {clearCart, populateWithRequired, addItem, removeItem, cartContains} from "./cart.js"
 
 window.gr491_result = await gr491();
 
@@ -15,6 +16,13 @@ const description = {
 }
 
 clearCards();
+clearCart();
+
+populateWithRequired(gr491_result.data);
+
+window.addToCart = addItem;
+window.removeFromCart = removeItem;
+window.cartContains = cartContains;
 
 for (const [key, value] of Object.entries(gr491_result.categories)) {
     addCard(key, key + " (" + value.length + ")", description[key]);
@@ -24,5 +32,3 @@ window.goBackToHomepage = () => {
     document.getElementById("gr491-categories").hidden = false;
     document.getElementById("gr491-rules").hidden = true;
 }
-
-console.log(gr491_result.categories);
