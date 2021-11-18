@@ -42,7 +42,7 @@ function CSVToArray( strData, strDelimiter ){
 
 async function FetchFileAndSave() {
     console.log("Fetched .csv file from the server.");
-    let response = await fetch("./INR-GR491.csv");
+    let response = await fetch("./Design4Green/INR-GR491.txt");
     let text = await response.text();
     localStorage.setItem("INR-GR491.csv", text);
     return text;
